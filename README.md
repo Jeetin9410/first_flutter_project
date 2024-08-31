@@ -9,13 +9,13 @@ This project is a starting point for a Flutter application.
 ### Screenshots
 
 #### Image 1
-![Image 1](assets/images/img.png)
+<img src="assets/images/image1.png" alt="Image 1" width="300"/>
 
 #### Image 2
-![Image 2](assets/images/img_1.png)
+<img src="assets/images/image2.png" alt="Image 2" width="300"/>
 
 #### Image 3
-![Image 3](assets/images/desktop1.png)
+<img src="assets/images/image3.png" alt="Image 3" width="300"/>
 
 #### Image 4
-![Image 4](assets/images/desktop2.png)
+<img src="assets/images/image4.png" alt="Image 4" width="300"/>
