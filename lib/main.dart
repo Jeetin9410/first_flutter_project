@@ -38,19 +38,42 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    var pair = appState.current; // better approach, to provide widget the data much it needs
 
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: 20),
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
-          ElevatedButton(onPressed: (){
-            appState.getNext();
-            }, child: Text("Click Me!"))
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 20),
+            Text('A random idea:'),
+            //Text(appState.current.asLowerCase), // not got extra info passed to Text
+            BigCard(pair: pair), // better appraoch to give only required data
+            ElevatedButton(onPressed: (){
+              appState.getNext();
+              }, child: Text("Click Me!"))
+          ],
+        ),
       ),
+    );
+  }
+
+
+}
+// Extract as widget short cut ==> cmd+ option+ M or W
+class BigCard extends StatelessWidget {
+  const BigCard({
+    super.key,
+    required this.pair,
+  });
+
+  final WordPair pair;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Text(pair.asLowerCase),
     );
   }
 }
