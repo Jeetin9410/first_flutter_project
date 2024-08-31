@@ -32,6 +32,22 @@ class MyAppState extends ChangeNotifier {
     current = WordPair.random();
     notifyListeners();
   }
+
+  // ↓ Add the code below.
+  var favorites = <WordPair>[];
+
+  void toggleFavorite() {
+    if (favorites.contains(current)) {
+      favorites.remove(current);
+    } else {
+      favorites.add(current);
+    }
+    print("Jeetin" + favorites.toString());
+    notifyListeners();
+  }
+
+
+
 }
 
 class MyHomePage extends StatelessWidget {
@@ -39,6 +55,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
     var pair = appState.current; // better approach, to provide widget the data much it needs
+
+    IconData icon;
+    if (appState.favorites.contains(pair)) {
+      icon = Icons.favorite;
+    } else {
+      icon = Icons.favorite_border;
+    }
 
     return Scaffold(
       body: Center(
@@ -49,9 +72,20 @@ class MyHomePage extends StatelessWidget {
             //Text(appState.current.asLowerCase), // not got extra info passed to Text
             BigCard(pair: pair), // better appraoch to give only required data
             SizedBox(height: 10),
-            ElevatedButton(onPressed: (){
-              appState.getNext();
-              }, child: Text("Click Me!"))
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () { appState.toggleFavorite(); },
+                  icon: Icon(icon),
+                  label: Text('Like'),
+                ),
+                SizedBox(width: 10,),
+                ElevatedButton(onPressed: (){
+                  appState.getNext();
+                  }, child: Text("Click Me!")),
+              ],
+            )
           ],
         ),
       ),
